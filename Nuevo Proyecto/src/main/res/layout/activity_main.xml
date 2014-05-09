@@ -12,7 +12,7 @@
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/main_textview" />
 
     <EditText
         android:layout_width="match_parent"
@@ -20,19 +20,21 @@
         android:inputType="textPersonName"
         android:text="Enter your name"
         android:ems="10"
-        android:id="@+id/editText_name"
-        android:layout_below="@+id/textView"
+        android:id="@+id/main_edittext"
+        android:layout_below="@+id/main_textview"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="202dp" />
+        android:layout_marginRight="202dp"
+        android:layout_marginTop="20dp"/>
 
+    <!-- Set OnClickListener to trigger results when pressed -->
     <Button
-        android:id="@+id/button_accept"
+        android:id="@+id/main_button"
+        android:layout_below="@+id/main_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText_name"
-        android:layout_centerHorizontal="true"
-        android:text="Accept"
-        />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/button" />
 
 </RelativeLayout>
