@@ -32,7 +32,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainButton.setOnClickListener(this);
 
         // 3. Access the EditText defined in layout XML
+        // and listen when its clicked
         mainEditText = (EditText) findViewById(R.id.main_edittext);
+        mainEditText.setOnClickListener(this);
     }
 
 
@@ -58,7 +60,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         // Gets texts from mainEditTexts and substitutes text on mainTextView
-        mainTextView.setText("Hello " + mainEditText.getText().toString() + "!");
+        if(view == mainButton) {
+            mainTextView.setText("Hello " + mainEditText.getText().toString() + "!");
+        }
+        //Clears the field
+        else if(view == mainEditText){
+            mainEditText.setText("");
+        }
     }
 }
 
