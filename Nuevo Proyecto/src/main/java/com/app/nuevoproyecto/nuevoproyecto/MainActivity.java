@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        // Test the Button
+        // Gets texts from mainEditTexts and substitutes text on mainTextView
         mainTextView.setText("Hello " + mainEditText.getText().toString() + "!");
     }
 }
