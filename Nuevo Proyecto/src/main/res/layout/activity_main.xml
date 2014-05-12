@@ -50,5 +50,6 @@
             android:src="@drawable/ic_launcher" />
         <!-- Closing tag for the horizontal nested layout -->
     </LinearLayout>
+    <!-- comment -->
 
 </RelativeLayout>
