@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     TextView mainTextView;
-    Button mainButton;
+    Button mainButton, quitButton;
     EditText mainEditText;
 
     @Override
@@ -35,6 +35,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // and listen when its clicked
         mainEditText = (EditText) findViewById(R.id.main_edittext);
         mainEditText.setOnClickListener(this);
+
+        // 4. Create the quit button
+        quitButton = (Button) findViewById(R.id.quit_button);
+        quitButton.setOnClickListener(this);
     }
 
 
@@ -66,6 +70,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         //Clears the field
         else if(view == mainEditText){
             mainEditText.setText("");
+        }
+        // Quit button to fuck the App
+        else if(view == quitButton) {
+            // Show pop-up to confirm exit
+            System.exit(0);
         }
     }
 }

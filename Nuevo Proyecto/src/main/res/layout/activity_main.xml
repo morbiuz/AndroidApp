@@ -15,24 +15,23 @@
         android:id="@+id/main_textview" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Enter your name"
         android:ems="10"
         android:id="@+id/main_edittext"
         android:layout_below="@+id/main_textview"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="202dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true" />
 
     <!-- This nested layout contains views of its own -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_edittext"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
         <!-- Set OnClickListener to trigger results when pressed -->
         <Button
             android:id="@+id/main_button"
@@ -50,6 +49,14 @@
             android:src="@drawable/ic_launcher" />
         <!-- Closing tag for the horizontal nested layout -->
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quit_text"
+        android:id="@+id/quit_button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
     <!-- comment -->
 
 </RelativeLayout>
