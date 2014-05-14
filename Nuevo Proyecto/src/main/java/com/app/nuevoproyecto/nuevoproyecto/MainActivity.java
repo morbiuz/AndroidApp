@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 // import android.app.FragmentManager;
+import android.media.MediaPlayer;
 import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
@@ -20,8 +21,9 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton;
+    Button mainButton, quitButton, playButton, stopButton;
     EditText mainEditText;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainEditText = (EditText) findViewById(R.id.main_edittext);
         mainEditText.setOnClickListener(this);
 
-        // 4. Create the quit button
+        // 4. Add listener to the quit button
         quitButton = (Button) findViewById(R.id.quit_button);
         quitButton.setOnClickListener(this);
+
+        // 5. Add listeners to the play and stop buttons
+        playButton = (Button) findViewById(R.id.play_button);
+        playButton.setOnClickListener(this);
+
+        stopButton = (Button) findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(this);
+
+        // 6. Prepare media player
+        // 'this' is the context, in this case the class MainActivity
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song);
     }
 
 
@@ -84,6 +97,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             FragmentManager fragmentManager = getSupportFragmentManager();
             QuitDialogFragment quitDialogFragment = new QuitDialogFragment();
             quitDialogFragment.show(fragmentManager, "tagAlerta");
+        }
+        else if(view == playButton) {
+            mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        }
+        else if(view == stopButton) {
+            mediaPlayer.pause();
         }
     }
 }

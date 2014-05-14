@@ -10,5 +10,8 @@
     <string name="quit">Quit App</string>
     <string name="cancel">Cancel</string>
     <string name="quitAppDialogStr">Quit App?</string>
+    <string name="play_song">Play song</string>
+    <string name="stop_song">Stop Song</string>
+    <string name="enter_name">Enter your name</string>
 
 </resources>
