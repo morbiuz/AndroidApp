@@ -8,55 +8,71 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.app.nuevoproyecto.nuevoproyecto.MainActivity">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_textview" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Enter your name"
-        android:ems="10"
-        android:id="@+id/main_edittext"
-        android:layout_below="@+id/main_textview"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentStart="true" />
-
-    <!-- This nested layout contains views of its own -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_edittext"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
-        <!-- Set OnClickListener to trigger results when pressed -->
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_textview" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Enter your name"
+            android:ems="10"
+            android:id="@+id/main_edittext"
+            android:layout_below="@+id/main_textview"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:password="false"
+            android:phoneNumber="false"
+            android:selectAllOnFocus="false"
+            android:enabled="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_edittext"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
+            <!-- Set OnClickListener to trigger results when pressed -->
+            <Button
+                android:id="@+id/main_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/button" />
+            <!-- Shows an image from your drawable resources -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_launcher" />
+            <!-- Closing tag for the horizontal nested layout -->
+        </LinearLayout>
+
         <Button
-            android:id="@+id/main_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="@string/button" />
-        <!-- Shows an image from your drawable resources -->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_launcher" />
-        <!-- Closing tag for the horizontal nested layout -->
+            android:text="@string/quit_text"
+            android:id="@+id/quit_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/quit_text"
-        android:id="@+id/quit_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <!-- This nested layout contains views of its own -->
+
     <!-- comment -->
 
 </RelativeLayout>
