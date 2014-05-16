@@ -13,5 +13,6 @@
     <string name="play_song">Play song</string>
     <string name="stop_song">Stop Song</string>
     <string name="enter_name">Enter your name</string>
+    <string name="pause_song">Pause song</string>
 
 </resources>

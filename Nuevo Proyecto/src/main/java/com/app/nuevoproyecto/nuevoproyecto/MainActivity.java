@@ -21,9 +21,9 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton, playButton, stopButton;
+    Button mainButton, quitButton, playButton, pauseButton, stopButton;
     EditText mainEditText;
-    MediaPlayer mediaPlayer;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +49,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         quitButton = (Button) findViewById(R.id.quit_button);
         quitButton.setOnClickListener(this);
 
-        // 5. Add listeners to the play and stop buttons
+        // 5. Add listeners to the play, pause and stop buttons
         playButton = (Button) findViewById(R.id.play_button);
         playButton.setOnClickListener(this);
+
+        pauseButton = (Button) findViewById(R.id.pause_button);
+        pauseButton.setOnClickListener(this);
 
         stopButton = (Button) findViewById(R.id.stop_button);
         stopButton.setOnClickListener(this);
 
-        // 6. Prepare media player
-        // 'this' is the context, in this case the class MainActivity
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.song);
+        // 6. Prepare song to be played, better done in a new method with try-catch for errors
+        loadClip();
     }
 
 
@@ -99,10 +101,34 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             quitDialogFragment.show(fragmentManager, "tagAlerta");
         }
         else if(view == playButton) {
-            mediaPlayer.start(); // no need to call prepare(); create() does that for you
+            mp.start();
         }
+
+        else if(view == pauseButton) {
+            mp.pause();
+        }
+
         else if(view == stopButton) {
-            mediaPlayer.pause();
+            mp.stop();
         }
+    }
+
+    private void loadClip() {
+        try {
+            mp=MediaPlayer.create(this, R.raw.song);
+        }
+        catch (Throwable t) {
+            showError(t);
+        }
+    }
+
+    private void showError(Throwable t) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
+        builder
+                .setTitle("Exception!")
+                .setMessage(t.toString())
+                .setPositiveButton("OK", null)
+                .show();
     }
 }

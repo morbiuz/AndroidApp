@@ -71,6 +71,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/play_song"
                 android:id="@+id/play_button" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pause_song"
+                android:id="@+id/pause_button" />
 
             <Button
                 android:layout_width="wrap_content"
