@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 // import android.app.FragmentManager;
+import android.media.MediaPlayer;
 import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
@@ -20,8 +21,9 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton;
+    Button mainButton, quitButton, playButton, pauseButton, stopButton;
     EditText mainEditText;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainEditText = (EditText) findViewById(R.id.main_edittext);
         mainEditText.setOnClickListener(this);
 
-        // 4. Create the quit button
+        // 4. Add listener to the quit button
         quitButton = (Button) findViewById(R.id.quit_button);
         quitButton.setOnClickListener(this);
+
+        // 5. Add listeners to the play, pause and stop buttons
+        playButton = (Button) findViewById(R.id.play_button);
+        playButton.setOnClickListener(this);
+
+        pauseButton = (Button) findViewById(R.id.pause_button);
+        pauseButton.setOnClickListener(this);
+
+        stopButton = (Button) findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(this);
+
+        // 6. Prepare song to be played, better done in a new method with try-catch for errors
+        loadClip();
     }
 
 
@@ -85,5 +100,35 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             QuitDialogFragment quitDialogFragment = new QuitDialogFragment();
             quitDialogFragment.show(fragmentManager, "tagAlerta");
         }
+        else if(view == playButton) {
+            mp.start();
+        }
+
+        else if(view == pauseButton) {
+            mp.pause();
+        }
+
+        else if(view == stopButton) {
+            mp.stop();
+        }
+    }
+
+    private void loadClip() {
+        try {
+            mp=MediaPlayer.create(this, R.raw.song);
+        }
+        catch (Throwable t) {
+            showError(t);
+        }
+    }
+
+    private void showError(Throwable t) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
+        builder
+                .setTitle("Exception!")
+                .setMessage(t.toString())
+                .setPositiveButton("OK", null)
+                .show();
     }
 }

@@ -24,7 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Enter your name"
+            android:text="@string/enter_name"
             android:ems="10"
             android:id="@+id/main_edittext"
             android:layout_below="@+id/main_textview"
@@ -60,15 +60,39 @@
             <!-- Closing tag for the horizontal nested layout -->
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play_song"
+                android:id="@+id/play_button" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pause_song"
+                android:id="@+id/pause_button" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_song"
+                android:id="@+id/stop_button" />
+        </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quit_text"
             android:id="@+id/quit_button"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false" />
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
     <!-- This nested layout contains views of its own -->
