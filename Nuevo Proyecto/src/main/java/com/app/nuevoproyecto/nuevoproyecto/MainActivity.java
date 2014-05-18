@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener {
 
     TextView mainTextView;
     Button mainButton, quitButton, playButton, pauseButton, stopButton;
@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 1. Access the TextView defined in layout XML
         // and then set its text
         mainTextView = (TextView) findViewById(R.id.main_textview);
-        mainTextView.setText("Set in Java!");
+        mainTextView.setText("Hello World!");
 
         // 2. Access the Button defined in layout XML
         // and listen for it here
@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         stopButton.setOnClickListener(this);
 
         // 6. Prepare song to be played, better done in a new method with try-catch for errors
-        loadClip();
+        setupSong();
     }
 
 
@@ -94,11 +94,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             quitDialogFragment.show(fragmentManager, "tagAlerta");
         }
         else if(view == playButton) {
-            mp.start();
+            play();
         }
 
         else if(view == pauseButton) {
-            mp.pause();
+            pause();
         }
 
         else if(view == stopButton) {
@@ -106,27 +106,67 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    // This listener will call the stop() method when it detects the song has finished.
+    // It allows multiple reproductions of the song.
+    public void onCompletion(MediaPlayer mp) {
+        stop();
+    }
+
+    // Load the song into the MediaPlayer object with a try-catch for errors.
     private void loadClip() {
         try {
             mp=MediaPlayer.create(this, R.raw.song);
+            mp.setOnCompletionListener(this);
         }
         catch (Throwable t) {
             showError(t);
         }
     }
 
-    private void stop() {
 
+    // Play and pause methods, action buttons are enabled or disabled depending
+    // on the state of the reproduction.
+    private void play() {
+        mp.start();
+        playButton.setEnabled(false);
+        pauseButton.setEnabled(true);
+        stopButton.setEnabled(true);
+    }
+
+    private void pause() {
+        mp.pause();
+
+        playButton.setEnabled(true);
+        pauseButton.setEnabled(false);
+        stopButton.setEnabled(true);
+    }
+
+    // After calling MediaPlayer.stop, prepare song again and set the pointer at the start
+    // so it can be reproduced again if needed.
+    private void stop() {
         mp.stop();
+        pauseButton.setEnabled(false);
+        stopButton.setEnabled(false);
 
         try {
             mp.prepare();
             mp.seekTo(0);
+            playButton.setEnabled(true);
         }
         catch (Throwable t) {
             showError(t);
         }
     }
+
+    // Handles the start state, loading the song and the initial state of buttons
+    private void setupSong() {
+        loadClip();
+        playButton.setEnabled(true);
+        pauseButton.setEnabled(false);
+        stopButton.setEnabled(false);
+    }
+
+    // If an error is caught, show an alert dialog 
     private void showError(Throwable t) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
 
