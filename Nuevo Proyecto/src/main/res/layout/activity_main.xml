@@ -27,9 +27,7 @@
             android:text="@string/enter_name"
             android:ems="10"
             android:id="@+id/main_edittext"
-            android:layout_below="@+id/main_textview"
             android:layout_marginTop="20dp"
-            android:layout_alignParentStart="true"
             android:gravity="center"
             android:password="false"
             android:phoneNumber="false"
@@ -39,7 +37,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/main_edittext"
             android:orientation="horizontal"
             android:id="@+id/linearLayout">
             <!-- Set OnClickListener to trigger results when pressed -->
@@ -56,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_launcher"
+                android:contentDescription="@string/image_alt_text" />
             <!-- Closing tag for the horizontal nested layout -->
         </LinearLayout>
 
@@ -87,10 +85,15 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/select_song"
+            android:id="@+id/select_button"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/quit_text"
             android:id="@+id/quit_button"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>

@@ -1,7 +1,11 @@
 package com.app.nuevoproyecto.nuevoproyecto;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,15 +15,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton, playButton, pauseButton, stopButton;
+    Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton;
     EditText mainEditText;
     MediaPlayer mp;
+    // Intents use an int number as identification so on return the activity recognizes it
+    private static final int FIND_SONG_INTENT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // 6. Prepare song to be played, better done in a new method with try-catch for errors
         setupSong();
+
+        // 7. Add select button listener
+        selectButton = (Button) findViewById(R.id.select_button);
+        selectButton.setOnClickListener(this);
     }
 
 
@@ -103,6 +115,47 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         else if(view == stopButton) {
             stop();
+        }
+
+        else if(view == selectButton){
+
+            //stops and releases current song
+            stop();
+            mp.release();
+            //calls a new song selection
+            launchMusicPlayer(view);
+        }
+    }
+
+    // Starts user's choice of music player for song selection.
+    public void launchMusicPlayer(View view) {
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_GET_CONTENT);
+        // Tells the intent to get an external content URI, and the type of file it needs to
+        // look for is audio/mp3
+        intent.setDataAndType(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,"audio/mp3");
+        // Starts the activity with the predefined number ID (FIND_SONG_INTENT)
+        startActivityForResult(intent, FIND_SONG_INTENT);
+    }
+
+    // Called after returning from music selection app
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == FIND_SONG_INTENT) && (resultCode == RESULT_OK)) {
+            Uri musicURI = data.getData(); //Gets obtained URI for the file
+            try {
+                // Reinitializes the MediaPlayer object and opens the selected song
+                mp = new MediaPlayer();
+                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mp.setDataSource(getApplicationContext(), musicURI);
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast toast = Toast.makeText(this, R.string.selection_cancel,
+                    Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
