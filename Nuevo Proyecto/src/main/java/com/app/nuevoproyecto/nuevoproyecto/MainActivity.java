@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener {
+public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCompletionListener {
 
     TextView mainTextView;
     Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton;
@@ -42,35 +42,72 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 2. Access the Button defined in layout XML
         // and listen for it here
         mainButton = (Button) findViewById(R.id.main_button);
-        mainButton.setOnClickListener(this);
+        mainButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+               mainTextView.setText("Hello " + mainEditText.getText().toString() + "!");
+            }
+        });
 
         // 3. Access the EditText defined in layout XML
         // and listen when its clicked
         mainEditText = (EditText) findViewById(R.id.main_edittext);
-        mainEditText.setOnClickListener(this);
+        mainEditText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mainEditText.setText("");
+            }
+        });
 
         // 4. Add listener to the quit button
         quitButton = (Button) findViewById(R.id.quit_button);
-        quitButton.setOnClickListener(this);
+        quitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Show pop-up to confirm exit
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                QuitDialogFragment quitDialogFragment = new QuitDialogFragment();
+                quitDialogFragment.show(fragmentManager, "tagAlerta");
+            }
+        });
 
         // 5. Add listeners to the play, pause and stop buttons
         playButton = (Button) findViewById(R.id.play_button);
-        playButton.setOnClickListener(this);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Plays song
+                play();
+            }
+        });
 
         pauseButton = (Button) findViewById(R.id.pause_button);
-        pauseButton.setOnClickListener(this);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Pauses song
+                pause();
+            }
+        });
 
         stopButton = (Button) findViewById(R.id.stop_button);
-        stopButton.setOnClickListener(this);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Stops song
+                stop();
+            }
+        });
 
         // 6. Prepare song to be played, better done in a new method with try-catch for errors
         setupSong();
 
         // 7. Add select button listener
         selectButton = (Button) findViewById(R.id.select_button);
-        selectButton.setOnClickListener(this);
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //stops and releases current song
+                stop();
+                mp.release();
+                //calls a new song selection
+                launchMusicPlayer(view);
+            }
+        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,45 +123,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View view) {
-        // Gets texts from mainEditTexts and substitutes text on mainTextView
-        if(view == mainButton) {
-            mainTextView.setText("Hello " + mainEditText.getText().toString() + "!");
-        }
-        //Clears the field
-        else if(view == mainEditText){
-            mainEditText.setText("");
-        }
-        // Quit button to fuck the App
-        else if(view == quitButton) {
-            // Show pop-up to confirm exit
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            QuitDialogFragment quitDialogFragment = new QuitDialogFragment();
-            quitDialogFragment.show(fragmentManager, "tagAlerta");
-        }
-        else if(view == playButton) {
-            play();
-        }
-
-        else if(view == pauseButton) {
-            pause();
-        }
-
-        else if(view == stopButton) {
-            stop();
-        }
-
-        else if(view == selectButton){
-
-            //stops and releases current song
-            stop();
-            mp.release();
-            //calls a new song selection
-            launchMusicPlayer(view);
-        }
     }
 
     // Starts user's choice of music player for song selection.
