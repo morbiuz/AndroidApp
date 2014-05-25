@@ -101,8 +101,13 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
         selectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //stops and releases current song
-                stop();
-                mp.release();
+                //needs a try-catch so it doesn't throw an error when mp is not initialized
+                try {
+                    stop();
+                    mp.release();
+                }catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
                 //calls a new song selection
                 launchMusicPlayer(view);
             }
@@ -147,6 +152,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
                 mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mp.setDataSource(getApplicationContext(), musicURI);
                 mp.prepare();
+                playButton.setEnabled(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -154,6 +160,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
             Toast toast = Toast.makeText(this, R.string.selection_cancel,
                     Toast.LENGTH_SHORT);
             toast.show();
+            playButton.setEnabled(false);
         }
     }
 
