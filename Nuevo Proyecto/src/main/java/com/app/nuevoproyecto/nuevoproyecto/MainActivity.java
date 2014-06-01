@@ -23,7 +23,7 @@ import java.io.IOException;
 public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCompletionListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton;
+    Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton, goRightButton;
     EditText mainEditText;
     MediaPlayer mp;
     // Intents use an int number as identification so on return the activity recognizes it
@@ -110,6 +110,15 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
                 }
                 //calls a new song selection
                 launchMusicPlayer(view);
+            }
+        });
+
+        // 8. Go to the right activity listener
+        goRightButton = (Button) findViewById(R.id.goRightButton);
+        goRightButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RightActivity.class);
+                startActivity(intent);
             }
         });
     }
