@@ -62,29 +62,24 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            style="?android:attr/buttonBarStyle"
-            >
+            android:gravity="center_horizontal">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/play_song"
-                android:id="@+id/play_button"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:id="@+id/play_button" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pause_song"
-                android:id="@+id/pause_button"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:id="@+id/pause_button" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/stop_song"
-                android:id="@+id/stop_button"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:id="@+id/stop_button" />
         </LinearLayout>
 
         <Button
@@ -100,8 +95,6 @@
             android:text="@string/quit_text"
             android:id="@+id/quit_button"
             android:layout_gravity="center_horizontal" />
-
-        <include android:id="@+id/layoutprueba" layout="@layout/layoutprueba" />
 
     </LinearLayout>
 
