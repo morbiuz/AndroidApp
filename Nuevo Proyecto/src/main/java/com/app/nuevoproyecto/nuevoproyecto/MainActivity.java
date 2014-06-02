@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
     MediaPlayer mp;
     // Intents use an int number as identification so on return the activity recognizes it
     private static final int FIND_SONG_INTENT = 10;
+    float x1,x2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +126,43 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RightActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.left_in,R.anim.left_out);
+                overridePendingTransition(R.anim.right_in,R.anim.right_out);
             }
         });
+    } //end onCreate
+
+    public boolean onTouchEvent(MotionEvent touchevent)
+    {
+        switch (touchevent.getAction())
+        {
+            // when user first touches the screen we get x and y coordinate
+            case MotionEvent.ACTION_DOWN:
+            {
+                x1 = touchevent.getX();
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            {
+                x2 = touchevent.getX();
+
+                //if left to right sweep event on screen
+                if (x1 < x2)
+                {
+                    Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
+                }
+
+                // if right to left sweep event on screen
+                if (x1 > x2)
+                {
+                    //Toast.makeText(this, "Right to Left Swap Performed", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), RightActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.right_in,R.anim.right_out);
+                }
+                break;
+            }
+        }
+        return false;
     }
 
     @Override
