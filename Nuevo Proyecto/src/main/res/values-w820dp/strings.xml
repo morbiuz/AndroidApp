@@ -14,4 +14,5 @@
     <string name="enter_name">Enter your name</string>
     <string name="select_song">Select Song</string>
     <string name="selection_cancel">Cancel selection</string>
+    <string name="right_activity">Actividad derecha</string>
 </resources>

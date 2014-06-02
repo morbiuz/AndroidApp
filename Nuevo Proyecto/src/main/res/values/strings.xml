@@ -17,5 +17,7 @@
     <string name="image_alt_text">Android Roboto</string>
     <string name="select_song">Select Song</string>
     <string name="selection_cancel">Selection was cancelled</string>
+    <string name="title_activity_right">RightActivity</string>
+    <string name="right_activity">Actividad derecha</string>
 
 </resources>
