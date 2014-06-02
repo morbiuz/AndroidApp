@@ -94,7 +94,10 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
         });
 
         // 6. Prepare song to be played, better done in a new method with try-catch for errors
-        setupSong();
+        // setupSong();
+        playButton.setEnabled(false);
+        pauseButton.setEnabled(false);
+        stopButton.setEnabled(false);
 
         // 7. Add select button listener
         selectButton = (Button) findViewById(R.id.select_button);
@@ -105,7 +108,9 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
                 try {
                     stop();
                     mp.release();
-                }catch (IllegalStateException e) {
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
                 //calls a new song selection
@@ -119,6 +124,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RightActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_in,R.anim.left_out);
             }
         });
     }
@@ -180,7 +186,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
     }
 
     // Load the song into the MediaPlayer object with a try-catch for errors.
-    private void loadClip() {
+/*    private void loadClip() {
         try {
             mp=MediaPlayer.create(this, R.raw.song);
             mp.setOnCompletionListener(this);
@@ -188,7 +194,7 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
         catch (Throwable t) {
             showError(t);
         }
-    }
+    }*/
 
 
     // Play and pause methods, action buttons are enabled or disabled depending
@@ -226,12 +232,12 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
     }
 
     // Handles the start state, loading the song and the initial state of buttons
-    private void setupSong() {
+/*    private void setupSong() {
         loadClip();
         playButton.setEnabled(true);
         pauseButton.setEnabled(false);
         stopButton.setEnabled(false);
-    }
+    }*/
 
     // If an error is caught, show an alert dialog 
     private void showError(Throwable t) {
