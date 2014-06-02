@@ -148,7 +148,10 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
                 //if left to right sweep event on screen
                 if (x1 < x2)
                 {
-                    Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Left to Right Swap Performed", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), LeftActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.left_in,R.anim.left_out);
                 }
 
                 // if right to left sweep event on screen

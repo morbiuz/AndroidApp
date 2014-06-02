@@ -19,5 +19,7 @@
     <string name="selection_cancel">Selection was cancelled</string>
     <string name="title_activity_right">RightActivity</string>
     <string name="right_activity">Actividad derecha</string>
+    <string name="title_activity_left">LeftActivity</string>
+    <string name="left_activity">Actividad izquierda</string>
 
 </resources>
