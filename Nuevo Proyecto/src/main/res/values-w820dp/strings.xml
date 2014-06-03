@@ -15,4 +15,5 @@
     <string name="select_song">Select Song</string>
     <string name="selection_cancel">Cancel selection</string>
     <string name="right_activity">Actividad derecha</string>
+    <string name="set_alarm">Set Alarm</string>
 </resources>

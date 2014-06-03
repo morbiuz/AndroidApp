@@ -92,9 +92,18 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/set_alarm"
+            android:id="@+id/set_alarm"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/quit_text"
             android:id="@+id/quit_button"
             android:layout_gravity="center_horizontal" />
+
+
         <include android:id="@+id/bottom_layout"
             layout="@layout/bottom_layout"/>
 

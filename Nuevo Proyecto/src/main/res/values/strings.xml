@@ -21,5 +21,10 @@
     <string name="right_activity">Actividad derecha</string>
     <string name="title_activity_left">LeftActivity</string>
     <string name="left_activity">Actividad izquierda</string>
+    <string name="title_activity_swipe">SwipeActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="set_alarm">Set Alarm</string>
 
 </resources>

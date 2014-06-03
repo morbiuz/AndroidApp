@@ -1,6 +1,10 @@
 package com.app.nuevoproyecto.nuevoproyecto;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,12 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 
 public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCompletionListener {
 
     TextView mainTextView;
-    Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton, leftButton, rightButton;
+    Button mainButton, quitButton, playButton, pauseButton, stopButton, selectButton, leftButton, rightButton, alarmButton;
     EditText mainEditText;
     MediaPlayer mp;
     // Intents use an int number as identification so on return the activity recognizes it
@@ -129,7 +134,34 @@ public class MainActivity extends ActionBarActivity implements MediaPlayer.OnCom
                 overridePendingTransition(R.anim.right_in,R.anim.right_out);
             }
         });
+
+        // 9. Set alarm button
+        alarmButton = (Button) findViewById(R.id.set_alarm);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                setAlarm();
+            }
+        });
+
     } //end onCreate
+
+    public void setAlarm(){
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 5);
+
+        // Get a reference to the Alarm Manager
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        // Set the alarm to wake the device if sleeping.
+        int alarmType = AlarmManager.RTC_WAKEUP;
+        // Trigger the device in 10 seconds.
+        //long timeOrLengthofWait = 100000;
+        // Create a Pending Intent that will broadcast and action
+        Intent intentToFire = new Intent(this,RightActivity.class);
+        PendingIntent alarmIntent = PendingIntent.getActivity(this, 1234, intentToFire, PendingIntent.FLAG_CANCEL_CURRENT);
+        // Set the alarm
+        alarmManager.set(alarmType, cal.getTimeInMillis(), alarmIntent);
+    }
 
     public boolean onTouchEvent(MotionEvent touchevent)
     {
